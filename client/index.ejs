@@ -1,0 +1,185 @@
+<!-- client/index.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Search</title>
+</head>
+
+<!--CSS STYLE HERE, UNABLE TO CONNECT TO SEPARATE CSS FILE-->
+<style>
+    .search-result {
+        display: block; /* Display each result as a block */
+        margin-bottom: 10px; /* Add margin between each result */
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 12px;
+        color: white;
+
+    }
+    body{
+        display: grid;
+        grid-template-columns: 400px 600px 525px;
+        grid-template-rows: 80px 400px 300px;
+        background: linear-gradient(to bottom, #000000, #333333);
+    }
+    #navbar{
+        grid-column: 1/span 3;
+        grid-row: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+    .brand_buttons{
+        border-radius: 50px;
+        font-size: 10px;
+
+    }
+    #website_title {
+        font-size: 20px;
+        color: white;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        margin-right: 20px;
+    }
+    a {
+        margin-left: 40px;
+        margin-right: 40px;
+        text-decoration: none; /* Remove default underline */
+        position: relative; /* Required for absolute positioning */
+        color: #ffffff; /* Link color */
+        font-size: 20px;
+        font-family: Gadugi;
+    }
+    a::after{
+        content: ''; /* Required for the pseudo-element */
+        position: absolute; /* Position it relative to its parent */
+        bottom: -10px; /* Adjust as needed to position the underline */
+        left: 0; /* Start from the left edge of the link */
+        width: 100%; /* Full width */
+        height: 3px; /* Thickness of the underline */
+        background-color: #ffffff; /* Color of the underline */
+        transition: width 2s ease; /* Smooth transition for animation */
+        transform: scaleX(0); /* Initially scale the underline to 0 */
+        transform-origin: bottom left; /* Set the transformation origin */
+        border-radius: 3px;
+    }
+    a:hover::after{
+        transform: scaleX(1); /* Scale the underline to full width on hover */
+        transition: 0.5s;
+    }
+    #searchInput{
+        margin-left: 150px;
+        border-radius: 50px;
+        width: 300px;
+        height: 30px;
+    }
+    #search_button{
+        height: 30px;
+        width: 60px;
+        text-align: center;
+        background: linear-gradient(to right, #140122, #a622d2);
+        border-radius: 50px;
+    }
+
+</style>
+<body>
+    <div id="navbar">
+
+        <div id="website_title">CarSalesManagement</div>
+        <a href="#" onclick="showToyotaCars()">Toyota</a>
+        <a href="#" onclick="showOpelCars()">Opel</a>
+        <a href="#" onclick="showMitsubishiCars()">Mitsubishi</a>
+        <a href="#" onclick="showNissanCars()">Nissan</a>
+        <a href="#" onclick="showFordCars()">Ford</a>
+        
+        
+        
+            <input type="text" id="searchInput" placeholder="Search for cars...">
+        <button id="search_button" onclick="searchbar()">Search</button>
+    </div>
+
+    
+    
+    
+
+
+
+
+     
+    
+    <div id="searchResults"></div>
+
+
+
+
+
+<!--SCRIPTS HERE, UNABLE TO CONNECT TO A SEPARATE JAVASCRIPT FILE-->
+    <script>
+        //FUNCTION FOR SEARCH BAR
+        function searchbar() {
+            const searchInput = document.getElementById('searchInput').value;
+            fetch(`/search?query=${searchInput}`)
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        //FUNCTION FOR TOYOTA CARS
+        function showToyotaCars() {
+            fetch('/search?query=Toyota') // Fetch cars with brand Toyota
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        function showOpelCars() {
+            fetch('/search?query=Opel') // Fetch cars with brand Toyota
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        function showMitsubishiCars() {
+            fetch('/search?query=Mitsubishi') // Fetch cars with brand Toyota
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        function showFordCars() {
+            fetch('/search?query=Ford') // Fetch cars with brand Toyota
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        function showNissanCars() {
+            fetch('/search?query=Nissan') // Fetch cars with brand Toyota
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function displaySearchResults(results) {
+            const searchResults = document.getElementById('searchResults');
+            searchResults.innerHTML = ''
+            results.forEach(car => {
+                const carDiv = document.createElement('div');
+                carDiv.classList.add('search-result')
+                const accessories = car.Accessories.join(', ');
+                carDiv.textContent = `Brand: ${car.Brand} Model: ${car.Model} Hand: ${car.Hand} Accessories: ${accessories} Price: ${car.Price}`;
+                searchResults.appendChild(carDiv);
+            });
+        }
+    </script>
+</body>
+</html>
