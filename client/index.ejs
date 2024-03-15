@@ -11,16 +11,17 @@
 <style>
     .search-result {
         display: block; /* Display each result as a block */
-        margin-bottom: 10px; /* Add margin between each result */
+        margin-bottom: 20px; /* Add margin between each result */
+        margin-left: 90px;
         font-family:Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 12px;
+        font-size: 16px;
         color: white;
 
     }
     body{
         display: grid;
-        grid-template-columns: 400px 600px 525px;
-        grid-template-rows: 80px 400px 300px;
+        grid-template-columns: 400px 600px 500px;
+        grid-template-rows: 100px 400px 300px;
         background: linear-gradient(to bottom, #000000, #333333);
     }
     #navbar{
@@ -81,6 +82,14 @@
         background: linear-gradient(to right, #140122, #a622d2);
         border-radius: 50px;
     }
+    #search_result_area{
+        grid-column: 1/span 2;
+        grid-row: 2;
+    }
+    #other_buttons{
+        grid-column: 3;
+        grid-row: 2/span 3;
+    }
 
 </style>
 <body>
@@ -98,19 +107,15 @@
             <input type="text" id="searchInput" placeholder="Search for cars...">
         <button id="search_button" onclick="searchbar()">Search</button>
     </div>
-
-    
-    
-    
-
-
-
-
      
+    <div id="search_result_area">
+        <div id="searchResults"></div>
+    </div>
     
-    <div id="searchResults"></div>
-
-
+    <div id="other_buttons">
+        <button id="displaylte150Cars">Display ars below 150k</button>
+        
+    </div>
 
 
 
@@ -179,7 +184,17 @@
                 carDiv.textContent = `Brand: ${car.Brand} Model: ${car.Model} Hand: ${car.Hand} Accessories: ${accessories} Price: ${car.Price}`;
                 searchResults.appendChild(carDiv);
             });
+        function displaylte150Cars() {
+            fetch('/cars/Price')
+            .then(response => response.json())
+            .then(data => {
+                displaySearchResults(data);
+            })
+            .catch(error => console.error('Error:', error));
+            }
         }
+
+        
     </script>
 </body>
 </html>

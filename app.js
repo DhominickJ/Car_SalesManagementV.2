@@ -160,9 +160,18 @@ app.get('/search', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         });
 });
-app.get('/brand', (req, res) =>{
-    
-})
+app.get('/cars/Price', (req, res) => {
+    database.collection('cars')
+        .find({ Price: { $lte: 150000 } }) // Fetch cars with price less than or equal to 150000
+        .toArray()
+        .then(results => {
+            res.json(results);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        });
+});
 
 app.get('/', (req, res) => {
     res.render('index')
