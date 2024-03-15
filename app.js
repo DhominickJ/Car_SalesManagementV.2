@@ -97,7 +97,6 @@ app.post('/cars', (req, res) => {
             err: 'Could not create a new document'
         })
     })
-
 })
 
 //DELETE DOCUMENTS (POSTMAN ONLY)
@@ -150,7 +149,7 @@ app.get('/search', (req, res) => {
     const regex = new RegExp(searchQuery, 'i');
 
     database.collection('cars')
-        .find({ $or: [{Brand: regex}, { Model: regex }, { Price: regex }, { Hand: regex }, {Accessories: regex}] })
+        .find({ $or: [{Brand: regex}, { Model: regex }, { Hand: regex }, {Accessories: regex}] })
         .toArray()
         .then(results => {
             res.json(results);
@@ -160,16 +159,20 @@ app.get('/search', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         });
 });
-app.get('/cars/Price', (req, res) => {
+
+app.get('/price', (req, res) => {
+    const searchQuery = parseInt(req.query.query);
+    console.log(searchQuery)
+
     database.collection('cars')
-        .find({ Price: { $lte: 150000 } }) // Fetch cars with price less than or equal to 150000
+        .find( {Price: { $lte: searchQuery } }) // Fetch cars with price less than or equal to 150000
         .toArray()
         .then(results => {
             res.json(results);
         })
-        .catch(error => {
-            console.error('Error:', error);
-            res.status(500).json({ error: 'Internal server error' });
+        .catch(error => {   
+            console.error('Sakto nga error:', error);
+            // res.status(500).json({ error: 'Internal server error' });
         });
 });
 
