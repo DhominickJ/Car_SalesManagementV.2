@@ -87,7 +87,7 @@
         grid-row: 2;
     }
     #other_buttons{
-        grid-column: 3;
+        grid-column: 2;
         grid-row: 2/span 3;
     }
 
@@ -113,23 +113,35 @@
     </div>
     
     <div id="other_buttons">
-        <button id="displaylte150Cars">Display ars below 150k</button>
-        
+        <button id="displaylte150Cars" onclick="displaylte150Cars()">Display ars below 150k</button> 
     </div>
 
+    <script src="../search.js"></script>
 
 
-<!--SCRIPTS HERE, UNABLE TO CONNECT TO A SEPARATE JAVASCRIPT FILE-->
+<!-- SCRIPTS HERE, UNABLE TO CONNECT TO A SEPARATE JAVASCRIPT FILE -->
     <script>
         //FUNCTION FOR SEARCH BAR
         function searchbar() {
             const searchInput = document.getElementById('searchInput').value;
-            fetch(`/search?query=${searchInput}`)
-                .then(response => response.json())
-                .then(data => {
-                    displaySearchResults(data);
-                })
-                .catch(error => console.error('Error:', error));
+            const intSearchInput = parseInt(searchInput);
+            console.log(intSearchInput);
+            
+            if (isNaN(intSearchInput)) {
+                fetch(`/search?query=${searchInput}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        displaySearchResults(data);
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                fetch(`/price?query=${intSearchInput}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        displaySearchResults(data);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
         }
 
         //FUNCTION FOR TOYOTA CARS
@@ -173,6 +185,14 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
+        function displaylte150Cars() {
+            fetch('/price?query=150000') // Fetch cars with price below 150k
+            .then(response => response.json())
+            .then(data => {
+                displaySearchResults(data);
+            })
+            .catch(error => console.error('Error:', error));
+        }
 
         function displaySearchResults(results) {
             const searchResults = document.getElementById('searchResults');
@@ -184,17 +204,8 @@
                 carDiv.textContent = `Brand: ${car.Brand} Model: ${car.Model} Hand: ${car.Hand} Accessories: ${accessories} Price: ${car.Price}`;
                 searchResults.appendChild(carDiv);
             });
-        function displaylte150Cars() {
-            fetch('/cars/Price')
-            .then(response => response.json())
-            .then(data => {
-                displaySearchResults(data);
-            })
-            .catch(error => console.error('Error:', error));
-            }
         }
 
-        
     </script>
 </body>
 </html>
