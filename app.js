@@ -1,10 +1,12 @@
+
+//SETTING UP THE MONGODB EXPRESS, .db FILE AND OBJECTID
 const express = require('express')
 const { connectToDb, getDB} = require('./db')
 const { ObjectId } = require('mongodb')
 
-//init app and middleware
 const app = express()
 app.use(express.json())
+
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
 
@@ -27,24 +29,24 @@ connectToDb((err) => {
 })
 
 
-// set the view engine to ejs
+// set the view engine to ./client ejs file
 app.set('view engine', 'ejs');
 app.set('views', './client')
 app.set(express.static('client'));
 
-//routes
+//SETTING UP THE URL
 app.get('/cars', (req, res) => {
     // const page = req.query.p || 0
     // const carsPerPage = 7
-
     let cars = []
 
-//LIMITING 7 DOCUMENTS PER PAGE
+//DISPLAYING THE COLLECTION 'cars' IN THE '/car' URL
     database.collection('cars')
         .find()
         .sort({
             Model: 1
         })
+        //LIMITING 7 DOCUMENTS PER PAGE
         // .skip(page * carsPerPage) //SKIP THE AMOUNT OF CARS TIMES THE PAGE
         // .limit(carsPerPage) //LIMIT THE AMOUNT OF CARS DISPLAYED IN ONE PAGE EQUAL TO THE VALUE
         .forEach(car => cars.push(car))
@@ -90,7 +92,7 @@ app.post('/cars', (req, res) => {
     database.collection('cars')
     .insertOne(car)
     .then(result => {
-        res.status(201).json(result)
+        res.status(201).json(result)(result.ops[0]);
     })
     .catch(err => {
         res.status(500).json({
@@ -141,7 +143,7 @@ app.patch('/cars/:id', (req, res) =>{
         res.status(500).json({ error: 'Invalid Document ID' });
 }})
 
-// Add this route in your Express app
+// ESTABLISHING AND CONFIGURING THE '/search' URL
 app.get('/search', (req, res) => {
     const searchQuery = req.query.query;
 
@@ -160,6 +162,7 @@ app.get('/search', (req, res) => {
         });
 });
 
+// ESTABLISHING AND CONFIGURING THE '/price' URL
 app.get('/price', (req, res) => {
     const searchQuery = parseInt(req.query.query);
     console.log(searchQuery)
@@ -176,7 +179,25 @@ app.get('/price', (req, res) => {
         });
 });
 
+
+// Set up route handler for the root URL ("/")
 app.get('/', (req, res) => {
-    res.render('index')
+    // Render the "index" view/template
+    res.render('index');
+});
+
+// Set up route handler for the "/addcars" URL
+app.get('/addcars', (req, res) => {
+    res.render('addcars');
+});
+
+app.get('/updatecars', (req, res) =>{
+    res.render('updatecars');
 })
 
+app.get('/deletecars', (req, res) =>{
+    res.render('deletecars')
+})
+app.get('/database', (req, res) =>{
+    res.render('database')
+})

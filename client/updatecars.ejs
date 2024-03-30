@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Car Data</title>
+</head>
+<body>
+    <h1>Update Car Data</h1>
+    <form id="updateForm">
+        <label for="carId">Car ID:</label>
+        <input type="text" id="carId" name="carId" required><br><br>
+
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model"><br><br>
+
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" name="brand"><br><br>
+
+        <label for="hand">Hand:</label>
+        <input type="text" id="hand" name="hand"><br><br>
+
+        <label for="accessories">Accessories:</label>
+        <input type="text" id="accessories" name="accessories"><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price"><br><br>
+
+        <button type="submit">Update</button>
+    </form>
+
+    <div id="message"></div>
+
+    <script>
+        document.getElementById("updateForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+            const carId = formData.get("carId");
+
+            const updates = {};
+            if (formData.get("model").trim() !== "") {
+                updates.Model = formData.get("model").trim();
+            }
+            if (formData.get("brand").trim() !== "") {
+                updates.Brand = formData.get("brand").trim();
+            }
+            if (formData.get("hand").trim() !== "") {
+                updates.Hand = formData.get("hand").trim();
+            }
+            if (formData.get("accessories").trim() !== "") {
+                updates.Accessories = formData.get("accessories").trim();
+            }
+            const priceValue = parseFloat(formData.get("price"));
+            if (!isNaN(priceValue)) {
+                updates.Price = priceValue;
+            }
+
+            fetch(`/cars/${carId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updates)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Failed to update car data");
+                }
+            })
+            .then(data => {
+                document.getElementById("message").innerText = "Car data updated successfully";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("message").innerText = "Failed to update car data";
+            });
+        });
+    </script>
+</body>
+</html>

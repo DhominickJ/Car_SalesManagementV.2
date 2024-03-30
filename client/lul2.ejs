@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Background Slider</title>
+    <style>
+      body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+}
+
+.slide:nth-child(1) {
+    background-image: url('Pictures/7dc6f4e03523e983c0102045789fad27.jpg');
+}
+.slide:nth-child(2) {
+    background-image: url('Pictures/car-sports-car-supercar-lamborghini-aventador-wallpaper-preview.jpg');
+}
+.slide:nth-child(3) {
+    background-image: url('Pictures/pngtree-sports-car-wild-light-effect-creative-background-image_2190832.jpg');
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: center;
+    color: white;
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="slider" id="slider">
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+
+    <div class="content">
+        <h1>Welcome to my website</h1>
+        <p>This is some content on top of the background slider.</p>
+    </div>
+
+    <script>
+      const slider = document.getElementById('slider');
+let isDragging = false;
+let startPosition = 0;
+let currentTranslate = 0;
+let prevTranslate = 0;
+
+slider.addEventListener('mousedown', startDrag);
+slider.addEventListener('mouseup', endDrag);
+slider.addEventListener('mousemove', drag);
+
+slider.addEventListener('touchstart', startDrag);
+slider.addEventListener('touchend', endDrag);
+slider.addEventListener('touchmove', drag);
+
+function startDrag(event) {
+    if (event.type === 'touchstart') {
+        startPosition = event.touches[0].clientX;
+    } else {
+        startPosition = event.clientX;
+    }
+
+    isDragging = true;
+    slider.style.cursor = 'grabbing';
+}
+
+function endDrag() {
+    isDragging = false;
+    slider.style.cursor = 'grab';
+}
+
+function drag(event) {
+    if (!isDragging) return;
+
+    let currentPosition;
+
+    if (event.type === 'touchmove') {
+        currentPosition = event.touches[0].clientX;
+    } else {
+        currentPosition = event.clientX;
+    }
+
+    const diff = currentPosition - startPosition;
+    currentTranslate = prevTranslate + diff;
+
+    slider.style.transform = `translateX(${currentTranslate}px)`;
+}
+
+slider.addEventListener('transitionend', () => {
+    prevTranslate = currentTranslate;
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Database</title>
+
+    <style>
+        body{
+            display: grid;
+            grid-template-columns: 100px 500px auto auto;
+            grid-template-rows: 50px 700px 700px 200px;
+            padding: 0;
+            margin: 0;
+        }
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0px;
+      left: -250px;
+      padding-top: 35px;
+      background-color: #bebdbd;
+      transition: left 0.3s ease;
+      z-index: 3;
+    }
+    
+    .sidebar.active {
+      left: 0;
+    }
+    
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .sidebar ul li {
+      padding: 20px;
+      margin-left: 10px;
+      font-size: 18px;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .sidebar ul li:hover {
+      background-color: #797979;
+      transition: 1s;
+    }
+    
+    .menu-toggle {
+      position: fixed;
+      left: 15px;
+      top: 15px;
+      cursor: pointer;
+      z-index: 3;
+    }
+    
+    .menu-toggle i {
+      font-size: 24px;
+      color: #fff;
+    }
+    
+    .sub-menu {
+      display: none;
+    }
+    
+    .sub-menu.active {
+      display: block;
+    }
+    
+    .sub-menu a {
+      display: block;
+      padding: 10px;
+      padding-right: 15px;
+      margin-top: 10px;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+    }
+    .sidebar ul li a:hover {
+      color:#a09e9e;
+      transition: 1s;
+    }
+    #design_top{
+        grid-row: 2;
+        grid-column: 1/span 4;
+        background-color: #303030;
+    }
+    #results{
+        grid-row: 3;
+        grid-column: 1/span 3;
+    }
+    #navbar{
+        grid-column: 1/span 4;
+        grid-row: 1;
+        background-color: #303030;
+        text-align: center;
+        color: white;
+        padding-left: 300px;
+        padding-top: 20px;
+    }
+    #navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 200; /* Thin weight */
+        font-size: 20px; /* You can adjust the font size as needed */
+        padding: 30px;
+    }
+    #searchInput{
+        margin-left: 100px;
+        height: 20px;
+        width: 200px;
+    }
+    #search_button{
+        height: 25px;
+        width: 80px;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+    #patrol_top{
+        height: 280px;
+        width: 720px;
+        position: absolute;
+        right: 70px;
+        top: 300px;
+    }
+    #rental_tag{
+        font-family: 'Montserrat', sans-serif;
+        font-size: 35px;
+        text-align: center;
+        color: #fff;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Rent</a></li>
+          <li><a href="#">Booking</a></li>
+          <li onclick="toggleSubMenu()">
+            <a href="database">Database</a>
+            <div class="sub-menu" id="carSubMenu">
+                <a>Mitsubishi</a>
+                <a>Ford</a>
+                <a>Opel</a>
+                <a>Nissan</a>
+                <a>Toyota</a>
+            </div>
+          </li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Branches</a></li>
+        </ul>
+      </div>
+    
+    <div class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars thin-menu-icon"></i>
+      </div>
+
+      
+      
+      <div id="navbar">
+        <a href="">Homepage</a>
+        <a href="">About</a>
+        <a href="">Services</a>
+        <a href="">Contact</a>
+        <input type="text" id="searchInput" placeholder="Search">
+        <button id="search_button" onclick="searchbar()">Search</button>
+      </div>
+
+      
+      
+      
+      
+      <div id="design_top">
+        <img id="patrol_top" src="Pictures/patrol.png" alt="">
+        <p id="rental_tag">Unleash the Journey with Our Premier Rental Experience!</p>
+      </div>
+      
+
+
+
+
+      <div id="results">
+
+      </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <script>
+
+    function toggleSidebar() {
+      var sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle('active');
+    }
+
+    function toggleSubMenu() {
+      var subMenu = document.getElementById("carSubMenu");
+      subMenu.classList.toggle('active');
+    }
+    </script>
+</body>
+</html>

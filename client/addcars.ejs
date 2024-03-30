@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Add Car</h1>
+    <form id="addCarForm">
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" name="brand"><br><br>
+
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model"><br><br>
+
+        <label for="hand">Hand:</label>
+        <input type="text" id="hand" name="hand"><br><br>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price"><br><br>
+
+        <label for="accessories">Accessories:</label>
+        <input type="text" id="accessories" name="accessories"><br><br>
+
+        <button type="submit">Add Car</button>
+    </form>
+
+    <script>
+                document.getElementById('addCarForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+
+            //TAKES IN ALL THESE ARGUMENTS
+            const Brand = document.getElementById('brand').value;
+            const Model = document.getElementById('model').value;
+            const Hand = document.getElementById('hand').value;
+            const Price = parseInt(document.getElementById('price').value);
+            const Accessories = document.getElementById('accessories').value.split(',').map(item => item.trim());
+
+            //CREATES THE JSON FILE
+            const car = { Brand, Model, Hand, Price, Accessories };
+
+            
+            fetch('/cars', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+                body: JSON.stringify(car)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to add car. Server returned ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Car added successfully:', data);
+                alert('Car added successfully!');
+                window.location.href = '/'; // Redirect to home page after adding car
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to add car. Please try again.');
+            });
+        })
+
+    </script>
+</body>
+</html>

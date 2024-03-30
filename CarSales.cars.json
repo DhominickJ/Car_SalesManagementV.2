@@ -1,0 +1,204 @@
+[{
+  "_id": {
+    "$oid": "65e8615af52d2ab8b3e5e0e1"
+  },
+  "Brand": "Mitsubishi",
+  "Model": "Galant GTI",
+  "Hand": "New",
+  "Price": 890000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer",
+    "Magnesium Wheels"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86224f52d2ab8b3e5e0e3"
+  },
+  "Brand": "Nissan",
+  "Model": "Sentra JX",
+  "Hand": "New",
+  "Price": 425000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer",
+    "Magnesium Wheels"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86224f52d2ab8b3e5e0e4"
+  },
+  "Brand": "Toyota",
+  "Model": "Corona Liftback '81",
+  "Hand": "2nd",
+  "Price": 120000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0e6"
+  },
+  "Brand": "Mitsubishi",
+  "Model": "Lancer '86",
+  "Hand": "2nd",
+  "Price": 250000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer",
+    "Magnesium Wheels"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0e7"
+  },
+  "Brand": "Ford",
+  "Model": "Telstar Sedan",
+  "Hand": "2nd",
+  "Price": 180000,
+  "Accessories": [
+    "Sterilizer"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0e8"
+  },
+  "Brand": "Toyota",
+  "Model": "Super Crown Saloon",
+  "Hand": "New",
+  "Price": 1600000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer",
+    "Magnesium Wheels"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0e9"
+  },
+  "Brand": "Nissan",
+  "Model": "Patrol",
+  "Hand": "New",
+  "Price": 1800000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0ea"
+  },
+  "Brand": "Opel",
+  "Model": "Rekord '83",
+  "Hand": "2nd",
+  "Price": 150000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0eb"
+  },
+  "Brand": "Opel",
+  "Model": "Manta '81",
+  "Hand": "2nd",
+  "Price": 130000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0ec"
+  },
+  "Brand": "Nissan",
+  "Model": "Urvan",
+  "Hand": "New",
+  "Price": 750000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer",
+    "Magnesium Wheels"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0ed"
+  },
+  "Brand": "Toyota",
+  "Model": "Corolla GLi '93",
+  "Hand": "New",
+  "Price": 475000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer",
+    "Magnesium Wheels"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0ee"
+  },
+  "Brand": "Ford",
+  "Model": "Laser '83",
+  "Hand": "2nd",
+  "Price": 130000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0ef"
+  },
+  "Brand": "Toyota",
+  "Model": "Cressida '83",
+  "Hand": "2nd",
+  "Price": 390000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65e86464f52d2ab8b3e5e0f0"
+  },
+  "Brand": "Mitsubishi",
+  "Model": "Lancer GTI",
+  "Hand": "New",
+  "Price": 490000,
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer",
+    "Magnesium Wheels"
+  ]
+},
+{
+  "_id": {
+    "$oid": "65f1000f26f2e414db17e388"
+  },
+  "Brand": "Toyota",
+  "Model": "EXP 01",
+  "Hand": "2nd",
+  "Price": {
+    "$numberLong": "5050505050"
+  },
+  "Accessories": [
+    "Air Conditioner",
+    "Sterilizer",
+    "Magnesium Wheels"
+  ]
+}]

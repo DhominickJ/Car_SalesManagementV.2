@@ -1,211 +1,254 @@
-<!-- client/index.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Search</title>
-</head>
-
-<!--CSS STYLE HERE, UNABLE TO CONNECT TO SEPARATE CSS FILE-->
-<style>
-    .search-result {
-        display: block; /* Display each result as a block */
-        margin-bottom: 20px; /* Add margin between each result */
-        margin-left: 90px;
-        font-family:Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 16px;
-        color: white;
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarSalesManagement</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      /* background-image: url('Pictures/pxfuel.jpg');
+      background-size:contain;
+      background-repeat: no-repeat; */
+      display: grid;
+      grid-template-columns: 100px 500px auto auto;
+      grid-template-rows: 50px 700px 300px 200px;
     }
-    body{
-        display: grid;
-        grid-template-columns: 400px 600px 500px;
-        grid-template-rows: 100px 400px 300px;
-        background: linear-gradient(to bottom, #000000, #333333);
+    
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0px;
+      left: -250px;
+      padding-top: 35px;
+      background-color: #bebdbd;
+      transition: left 0.3s ease;
+      z-index: 3;
+    }
+    
+    .sidebar.active {
+      left: 0;
+    }
+    
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    
+    .sidebar ul li {
+      padding: 20px;
+      margin-left: 10px;
+      font-size: 18px;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .sidebar ul li:hover {
+      background-color: #797979;
+      transition: 1s;
+    }
+    
+    .menu-toggle {
+      position: fixed;
+      left: 15px;
+      top: 15px;
+      cursor: pointer;
+      z-index: 3;
+    }
+    
+    .menu-toggle i {
+      font-size: 24px;
+      color: #fff;
+    }
+    
+    .sub-menu {
+      display: none;
+    }
+    
+    .sub-menu.active {
+      display: block;
+    }
+    
+    .sub-menu a {
+      display: block;
+      padding: 10px;
+      padding-right: 15px;
+      margin-top: 10px;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .sidebar ul li a {
+      color: white;
+      text-decoration: none;
+    }
+    .sidebar ul li a:hover {
+      color:#a09e9e;
+      transition: 1s;
+    }
+    #title{
+      font-family: 'Montserrat', sans-serif;
+      font-size: 35px;
+      padding-right: 25px;
+      padding-left: 20px;
+      color: #fff;
+
+      
+    }
+    #desc{
+      font-family: 'Roboto', sans-serif;
+      font-size: 17px;
+      padding-right: 40px;
+      padding-left: 20px;
+      color: #fff;
+    }
+    /* #homepagediv{
+      height: 300px;
+      
+    }  */
+
+    #design_left{
+      grid-column: 1/span 2;
+      grid-row: 1/span 2;
+      background-color: rgb(43, 43, 43);
+      
+    }
+    #design_right{
+      grid-column: 3/span 4;
+      grid-row: 2;
+    }
+
+    #banner{
+      background: linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75));
+      position: absolute;
+      height: 350px;
+      width: 700px;
+      top: 200px;
+      left: 125px;
+      font-weight: lighter;
+      z-index: 2;
+    }
+    #banner button{
+      font-weight: bold;
+      font-family:Arial, Helvetica, sans-serif;
+      background-color: rgb(231, 168, 51);
+      width: 150px;
+      height: 50px;
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+    #banner button:hover{
+      background-color: rgb(255, 255, 255);
+      color: rgb(231, 168, 51);
+      transition: 0.5s;
+    }
+    #banner_picture{
+      height: 540px;
+      width: 920px;
+      position: absolute;
+      right: 0;
+      top: 115px;
+      z-index: 1;
     }
     #navbar{
-        grid-column: 1/span 3;
-        grid-row: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
+      grid-column: 3/span 4;
+      grid-row: 1;
+      margin-left: 20px;
+      padding-top: 30px;
     }
-    .brand_buttons{
-        border-radius: 50px;
-        font-size: 10px;
-
+    #navbar a{
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 200; /* Thin weight */
+      font-size: 20px; /* You can adjust the font size as needed */
+      color: black;
+      padding: 30px;
+      text-align: center;
     }
-    #website_title {
-        font-size: 20px;
-        color: white;
-        font-family:Verdana, Geneva, Tahoma, sans-serif;
-        margin-right: 20px;
-    }
-    a {
-        margin-left: 40px;
-        margin-right: 40px;
-        text-decoration: none; /* Remove default underline */
-        position: relative; /* Required for absolute positioning */
-        color: #ffffff; /* Link color */
-        font-size: 20px;
-        font-family: Gadugi;
-    }
-    a::after{
-        content: ''; /* Required for the pseudo-element */
-        position: absolute; /* Position it relative to its parent */
-        bottom: -10px; /* Adjust as needed to position the underline */
-        left: 0; /* Start from the left edge of the link */
-        width: 100%; /* Full width */
-        height: 3px; /* Thickness of the underline */
-        background-color: #ffffff; /* Color of the underline */
-        transition: width 2s ease; /* Smooth transition for animation */
-        transform: scaleX(0); /* Initially scale the underline to 0 */
-        transform-origin: bottom left; /* Set the transformation origin */
-        border-radius: 3px;
-    }
-    a:hover::after{
-        transform: scaleX(1); /* Scale the underline to full width on hover */
-        transition: 0.5s;
-    }
-    #searchInput{
-        margin-left: 150px;
-        border-radius: 50px;
-        width: 300px;
-        height: 30px;
-    }
-    #search_button{
-        height: 30px;
-        width: 60px;
-        text-align: center;
-        background: linear-gradient(to right, #140122, #a622d2);
-        border-radius: 50px;
-    }
-    #search_result_area{
-        grid-column: 1/span 2;
-        grid-row: 2;
-    }
-    #other_buttons{
-        grid-column: 2;
-        grid-row: 2/span 3;
-    }
-
-</style>
+  </style>
+</head>
 <body>
-    <div id="navbar">
-
-        <div id="website_title">CarSalesManagement</div>
-        <a href="#" onclick="showToyotaCars()">Toyota</a>
-        <a href="#" onclick="showOpelCars()">Opel</a>
-        <a href="#" onclick="showMitsubishiCars()">Mitsubishi</a>
-        <a href="#" onclick="showNissanCars()">Nissan</a>
-        <a href="#" onclick="showFordCars()">Ford</a>
-        
-        
-        
-            <input type="text" id="searchInput" placeholder="Search for cars...">
-        <button id="search_button" onclick="searchbar()">Search</button>
-    </div>
-     
-    <div id="search_result_area">
-        <div id="searchResults"></div>
-    </div>
-    
-    <div id="other_buttons">
-        <button id="displaylte150Cars" onclick="displaylte150Cars()">Display ars below 150k</button> 
-    </div>
-
-    <script src="../search.js"></script>
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Rent</a></li>
+      <li><a href="#">Booking</a></li>
+      <li onclick="toggleSubMenu()">
+        <a href="database">Database</a>
+        <div class="sub-menu" id="carSubMenu">
+            <a>Mitsubishi</a>
+            <a>Ford</a>
+            <a>Opel</a>
+            <a>Nissan</a>
+            <a>Toyota</a>
+        </div>
+      </li>
+      <li><a href="#">FAQs</a></li>
+      <li><a href="#">Branches</a></li>
+    </ul>
+  </div>
 
 
-<!-- SCRIPTS HERE, UNABLE TO CONNECT TO A SEPARATE JAVASCRIPT FILE -->
-    <script>
-        //FUNCTION FOR SEARCH BAR
-        function searchbar() {
-            const searchInput = document.getElementById('searchInput').value;
-            const intSearchInput = parseInt(searchInput);
-            console.log(intSearchInput);
-            
-            if (isNaN(intSearchInput)) {
-                fetch(`/search?query=${searchInput}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        displaySearchResults(data);
-                    })
-                    .catch(error => console.error('Error:', error));
-            } else {
-                fetch(`/price?query=${intSearchInput}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        displaySearchResults(data);
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-        }
+  <div class="menu-toggle" onclick="toggleSidebar()">
+    <i class="fas fa-bars thin-menu-icon"></i>
+  </div>
 
-        //FUNCTION FOR TOYOTA CARS
-        function showToyotaCars() {
-            fetch('/search?query=Toyota') // Fetch cars with brand Toyota
-                .then(response => response.json())
-                .then(data => {
-                    displaySearchResults(data);
-                })
-                .catch(error => console.error('Error:', error));
-        }
-        function showOpelCars() {
-            fetch('/search?query=Opel') // Fetch cars with brand Toyota
-                .then(response => response.json())
-                .then(data => {
-                    displaySearchResults(data);
-                })
-                .catch(error => console.error('Error:', error));
-        }
-        function showMitsubishiCars() {
-            fetch('/search?query=Mitsubishi') // Fetch cars with brand Toyota
-                .then(response => response.json())
-                .then(data => {
-                    displaySearchResults(data);
-                })
-                .catch(error => console.error('Error:', error));
-        }
-        function showFordCars() {
-            fetch('/search?query=Ford') // Fetch cars with brand Toyota
-                .then(response => response.json())
-                .then(data => {
-                    displaySearchResults(data);
-                })
-                .catch(error => console.error('Error:', error));
-        }
-        function showNissanCars() {
-            fetch('/search?query=Nissan') // Fetch cars with brand Toyota
-                .then(response => response.json())
-                .then(data => {
-                    displaySearchResults(data);
-                })
-                .catch(error => console.error('Error:', error));
-        }
-        function displaylte150Cars() {
-            fetch('/price?query=150000') // Fetch cars with price below 150k
-            .then(response => response.json())
-            .then(data => {
-                displaySearchResults(data);
-            })
-            .catch(error => console.error('Error:', error));
-        }
+  <!-- <div id="homepagediv">
+    <div id="title">Lorem Ipsum</div>
+  <div id="desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. In et nobis similique quae, tenetur perspiciatis facilis eligendi? Doloribus, atque porro. Aperiam obcaecatt</div>
+  </div> -->
+  
+  <div id="design_left"></div>
+  <div id="design_right"></div>
 
-        function displaySearchResults(results) {
-            const searchResults = document.getElementById('searchResults');
-            searchResults.innerHTML = ''
-            results.forEach(car => {
-                const carDiv = document.createElement('div');
-                carDiv.classList.add('search-result')
-                const accessories = car.Accessories.join(', ');
-                carDiv.textContent = `Brand: ${car.Brand} Model: ${car.Model} Hand: ${car.Hand} Accessories: ${accessories} Price: ${car.Price}`;
-                searchResults.appendChild(carDiv);
-            });
-        }
+  <div id="banner">
+    <p id = "title">
+      Drive into Adventure: Rent Your Dream Ride Today!
+    </p>
+    <p id="desc">
+      Unleash the thrill of the open road with our premier car rental service! <br>Whether you're planning a weekend getaway, a business trip, or a family <br>vacation, we've got the perfect wheels for every journey.
+    </p>
+    <button>Explore Now</button>
+  </div>
 
-    </script>
+  <img id="banner_picture" src="Pictures/coupe.jpg" alt="">
+
+  <div id="navbar">
+    <a href="">Homepage</a>
+    <a href="">About</a>
+    <a href="">Services</a>
+    <a href="">Contact</a>
+  </div>
+
+  <!-- <div id="website_name">Drive-wise Sales</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    function toggleSidebar() {
+      var sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle('active');
+    }
+
+    function toggleSubMenu() {
+      var subMenu = document.getElementById("carSubMenu");
+      subMenu.classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
