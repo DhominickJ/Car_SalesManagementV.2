@@ -32,7 +32,8 @@ connectToDb((err) => {
 // set the view engine to ./client ejs file
 app.set('view engine', 'ejs');
 app.set('views', './client')
-app.set(express.static('client'));
+app.use(express.static('./client'));
+app.use(express.static('./client/Pictures'))
 
 //SETTING UP THE URL
 app.get('/cars', (req, res) => {
