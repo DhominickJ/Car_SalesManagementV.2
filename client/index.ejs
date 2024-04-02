@@ -178,11 +178,11 @@
       <li><a href="#">Home</a></li>
       <li><a href="#">Rent</a></li>
       <li><a href="#">Booking</a></li>
-      <li onclick="toggleSubMenu()">
+      <li onmouseenter="toggleSubMenu()" onmouseleave="hideSubMenu()">
         <a href="database">Database</a>
         <div class="sub-menu" id="carSubMenu">
             <a>Mitsubishi</a>
-            <a>Ford</a>
+            <a href="#">Ford</a>
             <a>Opel</a>
             <a>Nissan</a>
             <a>Toyota</a>
@@ -227,18 +227,6 @@
 
   <!-- <div id="website_name">Drive-wise Sales</div> -->
 
-
-
-
-
-
-
-
-
-
-
-
-
   <script>
     function toggleSidebar() {
       var sidebar = document.getElementById("sidebar");
@@ -249,6 +237,36 @@
       var subMenu = document.getElementById("carSubMenu");
       subMenu.classList.toggle('active');
     }
+
+    function hideSubMenu() {
+    var subMenu = document.getElementById("carSubMenu");
+    subMenu.classList.remove('active'); // Add inactive class to hide submenu
+    subMenu.classList.add('inactive')
+}
+
+function showFordCars() {
+    // Navigate to the /database webpage
+    window.location.href = '/database';
+}
+
+window.onload = function() {
+    // Execute the search for Ford cars after the /database webpage has loaded
+    if (window.location.pathname === '/database') {
+        fetch('/database/search?query=Ford')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch Ford cars. Server returned ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Optionally, you can handle the search results here if needed
+                console.log('Ford cars:', data);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+};
+
   </script>
 </body>
 </html>

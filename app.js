@@ -42,8 +42,10 @@ app.get('/cars', (req, res) => {
     let cars = []
 
 //DISPLAYING THE COLLECTION 'cars' IN THE '/car' URL
-    database.collection('cars')
-        .find()
+    
+    if (Object.keys(req.query).length === 0) { database.collection('cars').find(filter)
+    }
+else{database.collection('cars').find()
         .sort({
             Model: 1
         })
@@ -60,7 +62,7 @@ app.get('/cars', (req, res) => {
                 error: 'Could Not Fetch Documents'
             })
         })
-})
+}})
 
 
 //SINGLE DOCUMENTS ONLY
@@ -145,14 +147,38 @@ app.patch('/cars/:id', (req, res) =>{
 }})
 
 // ESTABLISHING AND CONFIGURING THE '/search' URL
-app.get('/search', (req, res) => {
+app.get('/database/search', (req, res) => {
+    // Construct filter based on query parameters
+    const filter = {};
+
+    if (req.query.hand) {
+        filter.Hand = req.query.hand;
+    }
+    if (req.query.price) {
+        filter.Price = { $lte: parseInt(req.query.price) }; // Assuming price is stored as integer in the database
+    }
+    if (req.query.brand) {
+        filter.Brand = req.query.brand;
+    }
+
+    // Check if search query is present
     const searchQuery = req.query.query;
+    if (searchQuery) {
+        // Use a regular expression to perform a case-insensitive search
+        const regex = new RegExp(searchQuery, 'i');
 
-    // Use a regular expression to perform a case-insensitive search
-    const regex = new RegExp(searchQuery, 'i');
+        // Add search query to filter
+        filter.$or = [
+            { Brand: regex },
+            { Model: regex },
+            { Hand: regex },
+            { Accessories: regex }
+        ];
+    }
 
+    // Find cars matching the filter
     database.collection('cars')
-        .find({ $or: [{Brand: regex}, { Model: regex }, { Hand: regex }, {Accessories: regex}] })
+        .find(filter)
         .toArray()
         .then(results => {
             res.json(results);
@@ -164,7 +190,7 @@ app.get('/search', (req, res) => {
 });
 
 // ESTABLISHING AND CONFIGURING THE '/price' URL
-app.get('/price', (req, res) => {
+app.get('/database/price', (req, res) => {
     const searchQuery = parseInt(req.query.query);
     console.log(searchQuery)
 
@@ -179,6 +205,10 @@ app.get('/price', (req, res) => {
             // res.status(500).json({ error: 'Internal server error' });
         });
 });
+
+
+
+
 
 
 // Set up route handler for the root URL ("/")
