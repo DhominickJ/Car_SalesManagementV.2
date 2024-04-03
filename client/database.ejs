@@ -133,7 +133,7 @@
 <!-- SCRIPTS HERE, UNABLE TO CONNECT TO A SEPARATE JAVASCRIPT FILE -->
     <script>
         //FUNCTION FOR SEARCH BAR
-        function searchbar() {
+    function searchbar() {
     const searchInput = document.getElementById('searchInput').value;
     const intSearchInput = parseInt(searchInput);
     console.log(intSearchInput);
@@ -244,9 +244,13 @@
             results.forEach(car => {
                 const carDiv = document.createElement('div');
                 carDiv.classList.add('search-result')
+                const img_div = document.createElement('div');
+                img_div.classList.add('img_div');
+                img_div.innerHTML = `<img src="./Pictures/${car.Model}.jpg" alt="Car Image" width="300" height="200">`;
                 const accessories = car.Accessories.join(', ');
                 carDiv.textContent = `Brand: ${car.Brand}\nModel: ${car.Model}\nHand: ${car.Hand}\nAccessories: ${accessories}\nPrice: ${car.Price}`;
                 searchResults.appendChild(carDiv);
+                searchResults.appendChild(img_div);
             });
         }
         function showAllCars() {

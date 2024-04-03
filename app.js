@@ -43,10 +43,12 @@ app.get('/cars', (req, res) => {
 
 //DISPLAYING THE COLLECTION 'cars' IN THE '/car' URL
     
-    if (Object.keys(req.query).length === 0) { database.collection('cars').find(filter)
+    if (Object.keys(req.query).length === 0) 
+    { 
+        database.collection('cars').find(filter)
     }
-else{database.collection('cars').find()
-        .sort({
+        else{database.collection('cars').find()
+        .sort({ 
             Model: 1
         })
         //LIMITING 7 DOCUMENTS PER PAGE
