@@ -136,7 +136,7 @@
     function searchbar() {
     const searchInput = document.getElementById('searchInput').value;
     const intSearchInput = parseInt(searchInput);
-    console.log(intSearchInput);
+    // console.log(intSearchInput);
     
     let query = 'database/search?';
 
@@ -153,7 +153,6 @@
 
     if (hand_2nd_hand) query += 'hand=2nd&';
     if (hand_new) query += 'hand=New&';
-
     if (price_500k) query += 'price=' + 500000 + '&';
     if (price_350k) query += 'price=' + 350000 + '&';
     if (price_250k) query += 'price=' + 250000 + '&';
